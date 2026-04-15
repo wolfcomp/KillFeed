@@ -1,8 +1,8 @@
 using System.Numerics;
 using Dalamud.Hooking;
-using Dalamud.Utility.Signatures;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using FFXIVClientStructs.FFXIV.Client.Network;
 
 namespace AllaganKillFeed;
 
@@ -12,19 +12,15 @@ internal unsafe class PacketCapture : IDisposable
 
     public PacketCapture()
     {
-        MainPlugin.GameInteropProvider.Service.InitializeFromAttributes(this);
-
         processPacketActionEffectHook = MainPlugin.GameInteropProvider.Service.HookFromSignature<ActionEffectHandler.Delegates.Receive>(ActionEffectHandler.Addresses.Receive.String, ProcessPacketActionEffectDetour);
         processPacketActionEffectHook.Enable();
+        processPacketActorControlHook = MainPlugin.GameInteropProvider.Service.HookFromSignature<PacketDispatcher.Delegates.HandleActorControlPacket>(PacketDispatcher.Addresses.HandleActorControlPacket.String, ProcessPacketActorControlDetour);
         processPacketActorControlHook.Enable();
     }
 
-    private delegate void ProcessPacketActorControlDelegate(uint entityId, uint type, uint param1, uint param2, uint param3, uint param4, uint param5, uint param6, uint param7, uint param8, ulong objectId, byte isReplay);
-
     private readonly Hook<ActionEffectHandler.Delegates.Receive> processPacketActionEffectHook;
 
-    [Signature("E8 ?? ?? ?? ?? 0F B7 0B 83 E9 64", DetourName = nameof(ProcessPacketActorControlDetour))]
-    private readonly Hook<ProcessPacketActorControlDelegate> processPacketActorControlHook = null!;
+    private readonly Hook<PacketDispatcher.Delegates.HandleActorControlPacket> processPacketActorControlHook;
 
     private void ProcessPacketActionEffectDetour(uint casterEntityId, Character* casterPtr, Vector3* targetPos, ActionEffectHandler.Header* header, ActionEffectHandler.TargetEffects* effects, GameObjectId* targetEntityIds)
     {
@@ -45,10 +41,10 @@ internal unsafe class PacketCapture : IDisposable
         }
     }
 
-    private void ProcessPacketActorControlDetour(uint entityId, uint type, uint param1, uint param2, uint param3, uint param4, uint param5, uint param6, uint param7, uint param8, ulong objectId, byte isReplay)
+    private void ProcessPacketActorControlDetour(uint entityId, uint type, uint param1, uint param2, uint param3, uint param4, uint param5, uint param6, uint param7, uint param8, GameObjectId objectId, bool isReplay)
     {
         processPacketActorControlHook.Original(entityId, type, param1, param2, param3, param4, param5, param6, param7, param8, objectId, isReplay);
-        if (isReplay != 0) return; // Ignore replays
+        if (isReplay) return; // Ignore replays
         var gameObjectManager = GameObjectManager.Instance();
         switch (type)
         {
