@@ -1,7 +1,7 @@
 using Dalamud.Interface.Utility;
 using System.Numerics;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal static class NotificationDrawer
 {

@@ -4,7 +4,7 @@ using Dalamud.Interface.ImGuiSeStringRenderer;
 using Dalamud.Interface.Utility;
 using Lumina.Text.ReadOnly;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal record ActiveNotification(DateTime CreatedAt, DateTime Expiry, TimeSpan Duration, ReadOnlySeString Content, string Title)
 {
@@ -38,7 +38,7 @@ internal record ActiveNotification(DateTime CreatedAt, DateTime Expiry, TimeSpan
         ImGui.SetNextWindowPos(topLeft + viewportPos, ImGuiCond.Always, pivot);
         var size = new Vector2(width, actionWindowHeight);
         ImGui.SetNextWindowSizeConstraints(size, size);
-        ImGui.Begin($"##AllaganKillFeedNotification{id}",
+        ImGui.Begin($"##KillFeedNotification{id}",
             ImGuiWindowFlags.AlwaysAutoResize |
             ImGuiWindowFlags.NoDecoration |
             ImGuiWindowFlags.NoMove |

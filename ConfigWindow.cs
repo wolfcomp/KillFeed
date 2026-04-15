@@ -1,6 +1,7 @@
-﻿using Dalamud.Interface.Windowing;
+﻿using System.Runtime.InteropServices;
+using Dalamud.Interface.Windowing;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 public class ConfigWindow() : Window("Allagan Kill Feed Config")
 {
@@ -9,3 +10,11 @@ public class ConfigWindow() : Window("Allagan Kill Feed Config")
         
     }
 }
+
+// [StructLayout(LayoutKind.Sequential)]
+// public struct Config
+// {
+//     public bool Enabled;
+//     public bool ShowClass;
+//     public bool 
+// }

@@ -2,7 +2,7 @@ using System.Numerics;
 using Dalamud.Interface.Utility;
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal static class NotificationConstants
 {

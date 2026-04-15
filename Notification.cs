@@ -1,6 +1,6 @@
 using Lumina.Text.ReadOnly;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal record Notification(TimeSpan Duration, ReadOnlySeString Content, string Title)
 {

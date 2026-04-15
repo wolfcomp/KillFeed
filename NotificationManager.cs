@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal static class NotificationManager
 {

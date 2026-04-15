@@ -1,7 +1,7 @@
 name: Build Plugin
 
 env:
-  plugin_name: AllaganKillFeed
+  plugin_name: KillFeed
 
 on:
   push:

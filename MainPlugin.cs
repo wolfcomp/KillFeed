@@ -3,7 +3,7 @@ using Dalamud.Plugin.Services;
 
 #pragma warning disable SeStringEvaluator
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 public class MainPlugin : IDalamudPlugin
 {

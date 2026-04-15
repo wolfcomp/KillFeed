@@ -1,7 +1,7 @@
 ﻿using Dalamud.IoC;
 using Dalamud.Plugin;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 public class DalamudServiceIntermediate<T> : IDisposable
     where T : class

@@ -1,7 +1,7 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal static class Extensions
 {

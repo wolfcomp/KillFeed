@@ -1,0 +1,13 @@
+﻿{
+  "Author": "WildWolf",
+  "Name": "KillFeed",
+  "Punchline": "Kill feed in any content.",
+  "Description": "Ever wanted a kill feed ala Battlefield and Modern Warfare? Well now you can with KillFeed.",
+  "Tags": [
+    "killfeed"
+  ],
+  "Changelog": "",
+  "RepoUrl": "https://github.com/wolfcomp/KillFeed",
+  "ApplicableVersion": "any",
+  "LoadPriority": 0
+}

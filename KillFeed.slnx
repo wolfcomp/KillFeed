@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="KillFeed.json" />
+  </Folder>
+  <Project Path="KillFeed.csproj" />
+</Solution>

@@ -4,7 +4,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.Network;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 internal unsafe class PacketCapture : IDisposable
 {

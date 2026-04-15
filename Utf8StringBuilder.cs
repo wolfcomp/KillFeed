@@ -1,16 +1,16 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
-namespace AllaganKillFeed;
+namespace KillFeed;
 
 public class Utf8StringBuilder
 {
-    internal byte[] chunkChars;
-    internal int capacity;
-    internal int chunkLength;
-    internal int maxCapacity;
-    internal const int DefaultCapacity = 256;
+    private byte[] chunkChars;
+    private int capacity;
+    private int chunkLength;
+    private int maxCapacity;
+    private const int DefaultCapacity = 256;
 
-    public Utf8StringBuilder(int capacity = DefaultCapacity) { }
+    public Utf8StringBuilder(int capacity = DefaultCapacity) : this([], capacity) { }
 
     public Utf8StringBuilder(string? value) : this(value, DefaultCapacity) { }
 
