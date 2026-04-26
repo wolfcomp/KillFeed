@@ -4,36 +4,11 @@ namespace KillFeed;
 
 public class Utf8StringBuilder
 {
-    private byte[] chunkChars;
-    private int capacity;
-    private int chunkLength;
-    private int maxCapacity;
-    private const int DefaultCapacity = 256;
+    private byte[] chunkChars = [];
+    private int capacity = 0;
+    private int chunkLength = 0;
 
-    public Utf8StringBuilder(int capacity = DefaultCapacity) : this([], capacity) { }
-
-    public Utf8StringBuilder(string? value) : this(value, DefaultCapacity) { }
-
-    public Utf8StringBuilder(string? value, int capacity = DefaultCapacity) : this(value, 0, value?.Length ?? 0, capacity) { }
-
-    public Utf8StringBuilder(string? value, int startIndex, int length, int capacity = DefaultCapacity) : this(Encoding.UTF8.GetBytes(value ?? string.Empty, startIndex, length).AsSpan(), capacity) { }
-
-    public Utf8StringBuilder(ReadOnlySpan<byte> value, int capacity = DefaultCapacity)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegative(capacity);
-
-        maxCapacity = int.MaxValue;
-        if (capacity == 0)
-        {
-            capacity = DefaultCapacity;
-        }
-        capacity = Math.Max(capacity, value.Length);
-
-        chunkChars = new byte[capacity];
-        chunkLength = value.Length;
-
-        value.CopyTo(chunkChars);
-    }
+    public Utf8StringBuilder() { }
 
     public override string ToString() => Encoding.UTF8.GetString(chunkChars, 0, chunkLength);
 
