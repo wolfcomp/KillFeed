@@ -11,31 +11,35 @@ internal record ActiveNotification(DateTime CreatedAt, DateTime Expiry, TimeSpan
     private static long _idCounter;
     private long id = Interlocked.Increment(ref _idCounter);
 
-    public float Draw(float width, float height)
+    /// <summary>
+    /// Draws the notification window with the given pivot point placed at <paramref name="position"/> (in absolute screen coordinates).
+    /// </summary>
+    /// <returns>The height of the drawn window.</returns>
+    /// <summary>Pushes the shared window style used by notifications and the position handle. Pair with <see cref="PopWindowStyle"/>.</summary>
+    public static unsafe void PushWindowStyle()
     {
-        var actionWindowHeight = ImGui.GetTextLineHeight() + NotificationConstants.ScaledWindowPadding * 2;
-        var viewport = ImGuiHelpers.MainViewport;
-        var viewportSize = viewport.WorkSize;
-        var viewportPos = viewport.Pos;
-
         ImGui.PushStyleVar(ImGuiStyleVar.Alpha, 0.8f);
         ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0);
         ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(NotificationConstants.ScaledWindowPadding));
-        unsafe
-        {
-            ImGui.PushStyleColor(ImGuiCol.WindowBg,
-                *ImGui.GetStyleColorVec4(ImGuiCol.WindowBg) *
-                new Vector4(1, 1, 1, 0.82f));
-        }
+        ImGui.PushStyleColor(ImGuiCol.WindowBg,
+            *ImGui.GetStyleColorVec4(ImGuiCol.WindowBg) *
+            new Vector4(1, 1, 1, 0.82f));
+    }
 
-        var xPos = viewportSize.X - width * 1f;
-        xPos = Math.Min(viewportSize.X - width - NotificationConstants.ScaledViewportEdgeMargin, xPos);
-        var yPos = viewportSize.Y - height - NotificationConstants.ScaledViewportEdgeMargin;
-        var topLeft = new Vector2(xPos, yPos);
-        var pivot = new Vector2(0, 1);
+    public static void PopWindowStyle()
+    {
+        ImGui.PopStyleColor();
+        ImGui.PopStyleVar(3);
+    }
+
+    public float Draw(Vector2 position, Vector2 pivot, float width)
+    {
+        var actionWindowHeight = ImGui.GetTextLineHeight() + NotificationConstants.ScaledWindowPadding * 2;
+
+        PushWindowStyle();
 
         ImGuiHelpers.ForceNextWindowMainViewport();
-        ImGui.SetNextWindowPos(topLeft + viewportPos, ImGuiCond.Always, pivot);
+        ImGui.SetNextWindowPos(position, ImGuiCond.Always, pivot);
         var size = new Vector2(width, actionWindowHeight);
         ImGui.SetNextWindowSizeConstraints(size, size);
         ImGui.Begin($"##KillFeedNotification{id}",
@@ -58,8 +62,7 @@ internal record ActiveNotification(DateTime CreatedAt, DateTime Expiry, TimeSpan
         ImGui.PopID();
         ImGui.End();
 
-        ImGui.PopStyleColor();
-        ImGui.PopStyleVar(3);
+        PopWindowStyle();
         return windowSize.Y;
     }
 

@@ -7,7 +7,6 @@ namespace KillFeed;
 internal static class NotificationConstants
 {
     public static float ScaledWindowPadding => MathF.Round(16 * ImGuiHelpers.GlobalScale);
-    public static float ScaledViewportEdgeMargin => MathF.Round(20 * ImGuiHelpers.GlobalScale);
     public static float ScaledIconSize => MathF.Round(IconSize * ImGuiHelpers.GlobalScale);
     public static float ScaledCoponentGap => MathF.Round(2 * ImGuiHelpers.GlobalScale);
     public static float ScaledExpiryProgressBarHeight => MathF.Round(3 * ImGuiHelpers.GlobalScale);
