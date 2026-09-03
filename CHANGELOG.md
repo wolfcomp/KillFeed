@@ -1,5 +1,8 @@
 # Changelog
 
+## [Unreleased]
+Add settings window (`/killfeed`) with an unlockable, draggable feed position; the feed stacks away from whichever half of the screen it sits in
+
 ## [1.1.0] (2025-12-24)
 API 14 update
 
