@@ -2,6 +2,7 @@ name: Build Plugin
 
 env:
   plugin_name: KillFeed
+  isRel: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
 on:
   push:
@@ -72,7 +73,14 @@ jobs:
         run: dotnet restore --locked-mode
 
       - name: Build
+        if: ${{ !env.isRel }}
         run: dotnet build --no-restore -c Release -clp:NoSummary
+        
+      - name: Build Release
+        if: ${{ env.isRel }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          dotnet build --no-restore -c Release -clp:NoSummary /p:Version=$VERSION
 
       - name: Rename manifest
         if: github.event_name != 'pull_request'
