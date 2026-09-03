@@ -11,5 +11,6 @@
 		<Nullable>enable</Nullable>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>.\bin\</OutputPath>
+        <VersionComponents>3</VersionComponents>
 	</PropertyGroup>
 </Project>
