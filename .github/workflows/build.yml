@@ -104,6 +104,12 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
 
+      - name: Fix manifest version
+        run: |
+          jq '.AssemblyVersion |= sub("\\.0$"; "")' artifact/manifest.json > artifact/manifest.tmp
+          rm artifact/manifest.json
+          mv artifact/manifest.tmp artifact/manifest.json
+
       - name: Extract release notes
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v2
